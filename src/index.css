@@ -1,13 +1,39 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+  font-family: "satoshi-medium";
+  src: url("./assets/fonts/Satoshi-Medium.otf");
+}
+
+@font-face {
+  font-family: "satoshi-regular";
+  src: url("./assets/fonts/Satoshi-Regular.otf");
+}
+
+@font-face {
+  font-family: "satoshi-bold";
+  src: url("./assets/fonts/Satoshi-Bold.otf");
+}
+@font-face {
+  font-family: "satoshi-light";
+  src: url("./assets/fonts/Satoshi-Light.otf");
+}
+
 body {
+  font-family: "satoshi-regular";
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #7F00FF, #E100FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider } from "react-router-dom";
+import { pageRoutes } from "./routes/pageRoutes";
+import { App, ConfigProvider } from "antd";
+import { Suspense } from "react";
+import LazyLoader from "./common/component/LazyLoader";
 
-function App() {
+const AppEntry = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <App>
+      <ConfigProvider>
+        <Suspense fallback={<LazyLoader />}>
+          <RouterProvider router={pageRoutes} />
+        </Suspense>
+      </ConfigProvider>
+    </App>
   );
-}
+};
 
-export default App;
+export default AppEntry;
