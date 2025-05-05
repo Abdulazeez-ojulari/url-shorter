@@ -4,6 +4,10 @@ export namespace Apirequest {
     longUrl: string;
   }
 
+  export interface GetUrlStatisticRequestType{
+    shortCode: string,
+  }
+
   export interface EditCartPriceRuleRequestType {
     ruleName?: string;
     description?: string;

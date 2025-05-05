@@ -6,9 +6,11 @@ import useEncodeUrl from '../../hooks/url/useEncodeUrl';
 import { useToast } from '../../hooks/useToast';
 import CopyIcon from '../../assets/icons/CopyIcon';
 import { useNavigate } from 'react-router-dom';
+import { Apiresponse } from '../../model/client/response';
 
 export default function UrlForm() {
   const [shortUrl, setShortUrl] = useState('');
+  const [encodedUrl, setEncodedUrl] = useState<Apiresponse.EncodeUrlResponseType>();
 
   const { handleEncodeUrl, handleEncodeUrlResponse } = useEncodeUrl();
   const  { success } = useToast()
@@ -33,6 +35,7 @@ export default function UrlForm() {
 
     response.then((data) => {
         setShortUrl(data.data.shortUrl)
+        setEncodedUrl(data.data)
     })
   };
 
@@ -85,7 +88,7 @@ export default function UrlForm() {
                 <Button 
                 className="bg-gray-700 text-white hover:bg-gray-600 px-4 py-2 rounded-md border-none"
                 onClick={() => {
-                    navigate(ROUTES.STATS, { state: {shortUrl} });
+                    navigate(ROUTES.STATS, { state: encodedUrl });
                 }}
                 >View Stats</Button>
                 <Button 

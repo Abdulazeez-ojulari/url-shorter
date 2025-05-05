@@ -11,6 +11,12 @@ export default function Header() {
         <Button
         className="text-sm text-white px-4 py-2 font-[satoshi-regular] rounded bg-transparent border-none hover:text-underline hover:!bg-transparent"
         onClick={() => {
+            navigate(ROUTES.HOME);
+        }}
+        >Home</Button>
+        <Button
+        className="text-sm text-white px-4 py-2 font-[satoshi-regular] rounded bg-transparent border-none hover:text-underline hover:!bg-transparent"
+        onClick={() => {
             navigate(ROUTES.STATS);
         }}
         >View Stats</Button>

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@ant-design/charts": "^2.2.7",
     "@reduxjs/toolkit": "^2.0.1",
     "@testing-library/jest-dom": "^6.4.1",
     "antd": "^5.12.7",
