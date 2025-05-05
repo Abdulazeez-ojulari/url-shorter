@@ -1,9 +1,40 @@
 import { useState } from 'react';
-import { formConfig } from '../../utils/helpers';
-import { Button, Form, Input } from 'antd';
+import { formConfig, ROUTES } from '../../utils/helpers';
+import { Button, Form, FormProps, Input } from 'antd';
+import { Apirequest } from '../../model/client/request';
+import useEncodeUrl from '../../hooks/url/useEncodeUrl';
+import { useToast } from '../../hooks/useToast';
+import CopyIcon from '../../assets/icons/CopyIcon';
+import { useNavigate } from 'react-router-dom';
 
 export default function UrlForm() {
-  const [autoPaste, setAutoPaste] = useState(true);
+  const [shortUrl, setShortUrl] = useState('');
+
+  const { handleEncodeUrl, handleEncodeUrlResponse } = useEncodeUrl();
+  const  { success } = useToast()
+  const navigate = useNavigate();
+
+  async function copyToClipBoard(text: string){
+    if ('clipboard' in navigator) {
+        navigator.clipboard.writeText(text).then(() => {
+            success('Copied')
+        });
+    } else {
+        return document.execCommand('copy', true, text);
+    }
+}
+
+  const onFinish: FormProps<Apirequest.EncodeUrlRequestType>["onFinish"] = (
+    values
+  ) => {
+    const response = handleEncodeUrl({
+      longUrl: values.longUrl,
+    });
+
+    response.then((data) => {
+        setShortUrl(data.data.shortUrl)
+    })
+  };
 
   return (
     <div className="text-center mb-8">
@@ -13,41 +44,61 @@ export default function UrlForm() {
         <p className="text-gray-400 mb-6">
             Url Shorter is an efficient and easy-to-use URL shortening service...
         </p>
-
-        <div className="flex items-center max-w-2xl mx-auto bg-[#1A1D24] px-4 py-2 rounded-full shadow-md">
+        {!shortUrl &&
         <Form
             {...formConfig}
-            className='flex-1'
-            onFinish={(e) => {
-            }}
+            className="flex items-center max-w-2xl mx-auto bg-[#1A1D24] px-4 py-2 rounded-full shadow-md"
+            onFinish={onFinish}
         >
-            <Form.Item
-              name="url"
-              label={null}
-              rules={[{ required: true, message: "Url is required" }]}
-              className='m-0'
+            <div className='flex-1'>
+                <Form.Item
+                name="longUrl"
+                label={null}
+                rules={[{ required: true, message: "Url is required" }]}
+                className='m-0'
+                >
+                <Input placeholder="Name" className="bg-transparent outline-none border-none text-white px-2 hover:bg-transparent" />
+                </Form.Item>
+            </div>
+            <Button
+            className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full text-white font-medium font-[satoshi-medium] border-none"
+            htmlType="submit"
+            loading={handleEncodeUrlResponse.isLoading}
             >
-              <Input placeholder="Name" className="bg-transparent outline-none border-none text-white px-2 hover:bg-transparent" />
-            </Form.Item>
-        </Form>
-        <Button
-        className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full text-white font-medium font-[satoshi-medium] border-none"
-        htmlType="submit"
-        >
-        Shorten Now!
-        </Button>
-      </div>
+            Shorten Now!
+            </Button>
+        </Form> 
+        }
 
-      <div className="mt-4 flex justify-center items-center gap-2 text-sm text-gray-400">
-        <label className="flex items-center gap-1">
-          <input
-            type="checkbox"
-            checked={autoPaste}
-            onChange={() => setAutoPaste(!autoPaste)}
-          />
-          Auto Paste from Clipboard
-        </label>
-      </div>
+        {shortUrl && 
+            <>
+            <div className="flex justify-center w-[315px] mx-auto gap-3 bg-[#2a2a2a] px-4 py-2 rounded-md shadow-md my-5">
+                <span className="text-lg font-medium">{shortUrl}</span>
+                <div
+                className="text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded transition text-sm"
+                onClick={() => copyToClipBoard(shortUrl)}
+                >
+                    <CopyIcon />
+                </div>
+            </div>
+            <div className="flex justify-center space-x-4">
+                <Button 
+                className="bg-gray-700 text-white hover:bg-gray-600 px-4 py-2 rounded-md border-none"
+                onClick={() => {
+                    navigate(ROUTES.STATS, { state: {shortUrl} });
+                }}
+                >View Stats</Button>
+                <Button 
+                className="bg-gray-700 text-white hover:bg-gray-600 px-4 py-2 rounded-md border-none"
+                onClick={() => {
+                    setShortUrl("")
+                }}
+                >Shorten another link</Button>
+            </div>
+            </>
+        }
+
+
     </div>
   );
 }

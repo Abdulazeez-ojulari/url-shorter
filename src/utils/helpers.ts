@@ -12,6 +12,7 @@ export const appName = " - URL SHORTER";
 
 export const ROUTES = {
   HOME: "/",
+  STATS: "/statistics",
 };
 
 export const PAGE_NAMES = {
