@@ -8,28 +8,18 @@ export namespace Apiresponse {
     msg: string = "";
     data?: T;
   }
+
   export interface EncodeUrlResponseType {
     token: string;
     firstName: string;
     lastName: string;
   }
 
-  export interface GetAllCartPriceRuleResponseType {
-    id: number;
-    ruleName: string;
-    description: string;
-    isActive: boolean;
-    customerGroups: string[]; 
-    couponType: 'No Coupon' | 'Specific Coupon';
-    code?: string; 
-    usesPerCustomer?: number | null; 
-    validFrom: Date;
-    validTo: Date;
-    priority: number;
-    publicInRssFeed: boolean;
-    conditions: Array<any>;
-    actions?: any;
-    createdAt: string;
-    updatedAt: string;
+  export interface GetAllUrlResponseType {
+    shortCode: string;
+    longUrl: string;
+    shortUrl: string;
+    status: string;
   }
+
 }

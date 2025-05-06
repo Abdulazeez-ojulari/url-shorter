@@ -21,7 +21,7 @@ const BarChart: React.FC<BarChartProp> = ({ data, xField, yField, colorField }) 
     },
     interaction: {
       tooltip: {
-        render: (e: any, { title, items }: any) => {
+        render: (_e: any, { title, items }: any) => {
           return (
             <div>
               <h4>{title}</h4>

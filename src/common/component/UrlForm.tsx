@@ -16,28 +16,28 @@ export default function UrlForm() {
   const  { success } = useToast()
   const navigate = useNavigate();
 
-  async function copyToClipBoard(text: string){
-    if ('clipboard' in navigator) {
-        navigator.clipboard.writeText(text).then(() => {
-            success('Copied')
-        });
-    } else {
-        return document.execCommand('copy', true, text);
+    async function copyToClipBoard(text: string){
+        if ('clipboard' in navigator) {
+            navigator.clipboard.writeText(text).then(() => {
+                success('Copied')
+            });
+        } else {
+            return document.execCommand('copy', true, text);
+        }
     }
-}
 
-  const onFinish: FormProps<Apirequest.EncodeUrlRequestType>["onFinish"] = (
-    values
-  ) => {
-    const response = handleEncodeUrl({
-      longUrl: values.longUrl,
-    });
+    const onFinish: FormProps<Apirequest.EncodeUrlRequestType>["onFinish"] = (
+        values
+    ) => {
+        const response = handleEncodeUrl({
+        longUrl: values.longUrl,
+        });
 
-    response.then((data) => {
-        setShortUrl(data.data.shortUrl)
-        setEncodedUrl(data.data)
-    })
-  };
+        response.then((data) => {
+            setShortUrl(data.data.shortUrl)
+            setEncodedUrl(data.data)
+        })
+    };
 
   return (
     <div className="text-center mb-8">

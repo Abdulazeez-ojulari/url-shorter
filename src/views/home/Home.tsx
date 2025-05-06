@@ -1,5 +1,6 @@
 import Header from '../../common/layout/Header';
 import UrlForm from '../../common/component/UrlForm';
+import UrlList from '../../common/component/UrlList';
 
 const Home = () => {
   document.title="Home | URL SHORTER"
@@ -9,6 +10,7 @@ const Home = () => {
       <div className="max-w-7xl mx-auto px-4 py-6">
         <Header />
         <UrlForm />
+        <UrlList />
       </div>
     </div>
   );
