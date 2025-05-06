@@ -3,12 +3,15 @@ import useGetUrlStatistics from "../../../hooks/url/useGetUrlStatistics";
 import BarChart from "./charts/BarChart";
 import LineChart from "./charts/LineChart";
 import PieChart from "./charts/PieChart";
+import { useToast } from "../../../hooks/useToast";
 
 interface StatsDashboardProp {
     shortCode: string;
+    setShortCode: (value: string) => void;
 }
-const StatsDashboard: React.FC<StatsDashboardProp> = ({ shortCode }) => {
+const StatsDashboard: React.FC<StatsDashboardProp> = ({ shortCode, setShortCode }) => {
     const { allUrlStatistic } = useGetUrlStatistics({shortCode});
+    const { error } = useToast()
 
     const [countries, setCountries] = useState<any>([]);
     const [browsers, setBrowsers] = useState<any>([]);
@@ -17,7 +20,6 @@ const StatsDashboard: React.FC<StatsDashboardProp> = ({ shortCode }) => {
     const [generalStats, setGeneralStats] = useState<any>({});
 
     useEffect(() => {
-        console.log(allUrlStatistic)
 
         const stats = allUrlStatistic.data?.data.statistic;
         if(stats){
@@ -40,7 +42,7 @@ const StatsDashboard: React.FC<StatsDashboardProp> = ({ shortCode }) => {
             const countryData = Object.keys(stats?.countries).map((country: string) => {
                 return {country: country, type: country, count: stats?.countries[country]}
             })
-            console.log(countryData)
+            
             setCountries(countryData)
 
             const clicksByDateData = Object.keys(stats?.clicksByDate).map((clicksByDate: string) => {
@@ -48,7 +50,12 @@ const StatsDashboard: React.FC<StatsDashboardProp> = ({ shortCode }) => {
             })
             setClicksByDate(clicksByDateData)
         }
-    }, [allUrlStatistic?.data?.data]);
+        
+        if(allUrlStatistic.isError){
+            error((allUrlStatistic.error as any).data.data[0].msg)
+            setShortCode("")
+        }
+    }, [allUrlStatistic]);
 
     return (
         <div className="p-3 my-4 grid gap-4">

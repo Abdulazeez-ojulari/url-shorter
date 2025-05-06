@@ -62,7 +62,7 @@ export default function UrlForm() {
                 rules={[{ required: true, message: "Url is required" }]}
                 className='m-0'
                 >
-                <Input placeholder="Name" className="bg-transparent outline-none border-none text-white px-2 hover:bg-transparent" />
+                <Input placeholder="Name" className="bg-transparent outline-[0px] border-none text-white px-2 hover:bg-transparent focus:bg-transparent focus:shadow-none" />
                 </Form.Item>
             </div>
             <Button
@@ -76,8 +76,8 @@ export default function UrlForm() {
         }
 
         {shortUrl && 
-            <>
-            <div className="flex justify-center w-[315px] mx-auto gap-3 bg-[#2a2a2a] px-4 py-2 rounded-md shadow-md my-5">
+            <div className='grid justify-cent'>
+            <div className="flex justify-center mx-auto gap-3 bg-[#2a2a2a] px-4 py-2 rounded-md shadow-md mb-5">
                 <span className="text-lg font-medium">{shortUrl}</span>
                 <div
                 className="text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded transition text-sm"
@@ -86,7 +86,7 @@ export default function UrlForm() {
                     <CopyIcon />
                 </div>
             </div>
-            <div className="flex justify-center w-[315px] mx-auto gap-3 bg-[#2a2a2a] px-4 py-2 rounded-md shadow-md my-5">
+            <div className="flex justify-center mx-auto gap-3 bg-[#2a2a2a] px-4 py-2 rounded-md shadow-md mb-5">
                 <span className="text-lg font-medium">{`${window.location.origin}/${shortCode}`}</span>
                 <div
                 className="text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded transition text-sm"
@@ -109,7 +109,7 @@ export default function UrlForm() {
                 }}
                 >Shorten another link</Button>
             </div>
-            </>
+            </div>
         }
 
 
