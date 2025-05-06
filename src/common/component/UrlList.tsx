@@ -112,6 +112,44 @@ export default function UrlList() {
           },
         },
         {
+          title: () => {
+            return (
+              <p className="text-xs font-medium font-[satoshi-regular] text-[#6A7682]">
+                Total Clicks
+              </p>
+            );
+          },
+          width: 100,
+          className: 'bg-[#232630!important] hover:bg-[#2A2D35!important] text-white',
+          key: "totalClicks",
+          render: (_: any, record: Apiresponse.GetAllUrlResponseType) => {
+            return (
+              <span className="">
+                <p className="">{record?.stats.totalClicks ?? "-"}</p>
+              </span>
+            );
+          },
+        },
+        {
+          title: () => {
+            return (
+              <p className="text-xs font-medium font-[satoshi-regular] text-[#6A7682]">
+                Created Date
+              </p>
+            );
+          },
+          width: 150,
+          className: 'bg-[#232630!important] hover:bg-[#2A2D35!important] text-white',
+          key: "createdAt",
+          render: (_: any, record: Apiresponse.GetAllUrlResponseType) => {
+            return (
+              <span className="">
+                <p className="">{record?.createdAt ?? "-"}</p>
+              </span>
+            );
+          },
+        },
+        {
             title: () => {
               return (
                 <p className="text-xs font-medium font-[satoshi-regular] text-[#6A7682]">

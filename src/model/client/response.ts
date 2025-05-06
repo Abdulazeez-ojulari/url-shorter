@@ -20,6 +20,10 @@ export namespace Apiresponse {
     longUrl: string;
     shortUrl: string;
     status: string;
+    stats: {
+      totalClicks: number
+    },
+    createdAt: string
   }
 
 }

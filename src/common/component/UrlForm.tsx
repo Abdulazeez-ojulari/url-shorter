@@ -10,6 +10,7 @@ import { Apiresponse } from '../../model/client/response';
 
 export default function UrlForm() {
   const [shortUrl, setShortUrl] = useState('');
+  const [shortCode, setShortCode] = useState('');
   const [encodedUrl, setEncodedUrl] = useState<Apiresponse.EncodeUrlResponseType>();
 
   const { handleEncodeUrl, handleEncodeUrlResponse } = useEncodeUrl();
@@ -25,7 +26,7 @@ export default function UrlForm() {
             return document.execCommand('copy', true, text);
         }
     }
-
+    
     const onFinish: FormProps<Apirequest.EncodeUrlRequestType>["onFinish"] = (
         values
     ) => {
@@ -35,6 +36,7 @@ export default function UrlForm() {
 
         response.then((data) => {
             setShortUrl(data.data.shortUrl)
+            setShortCode(data.data.shortCode)
             setEncodedUrl(data.data)
         })
     };
@@ -80,6 +82,15 @@ export default function UrlForm() {
                 <div
                 className="text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded transition text-sm"
                 onClick={() => copyToClipBoard(shortUrl)}
+                >
+                    <CopyIcon />
+                </div>
+            </div>
+            <div className="flex justify-center w-[315px] mx-auto gap-3 bg-[#2a2a2a] px-4 py-2 rounded-md shadow-md my-5">
+                <span className="text-lg font-medium">{`${window.location.origin}/${shortCode}`}</span>
+                <div
+                className="text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded transition text-sm"
+                onClick={() => copyToClipBoard(`${window.location.origin}/${shortCode}`)}
                 >
                     <CopyIcon />
                 </div>

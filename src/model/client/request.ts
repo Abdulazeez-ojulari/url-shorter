@@ -8,4 +8,7 @@ export namespace Apirequest {
     shortCode: string,
   }
 
+  export interface DecodeUrlRequestType {
+    shortCode: string;
+  }
 }
