@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useToast } from "../useToast";
 import { endpoints } from "../../store/api/endpoints";
 import { usePostDataMutation } from "../../store";
 import { Apiresponse } from "../../model/client/response";
@@ -10,7 +9,6 @@ import { Apirequest } from "../../model/client/request";
 const useDecodeUrl = () => {
   const [decodeUrl, handleDecodeUrlResponse] = usePostDataMutation();
 
-  const { error, success } = useToast();
   // const navigate = useNavigate()
 
   const handleDecodeUrl = async (
@@ -23,15 +21,9 @@ const useDecodeUrl = () => {
     });
     const apiResponse: Apiresponse.API<any> =
       response.error?.data ?? response?.data;
-    if (apiResponse?.responseCode !== 201) {
-      error(
-        apiResponse.message ??
-          apiResponse?.responseMessage ??
-          "Something went wrong!"
-      );
+    if (apiResponse?.responseCode !== 200) {
+      
     } else {
-      success(apiResponse?.responseMessage ?? apiResponse?.message);
-      // navigate(ROUTES.PRODUCTS)
     }
     return apiResponse
   };

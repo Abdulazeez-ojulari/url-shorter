@@ -15,7 +15,7 @@ const Decode = () => {
             });
 
             response.then((data) => {
-                window.location.href = data.data.longUrl
+                window.location.href = data.data.shortUrl
             })
         }
     }, [shortCode]);
